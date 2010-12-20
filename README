@@ -1,0 +1,71 @@
+Maildir++ Plugin for Claws Mail
+
+B.Sc. Christoph Hohmann
+
+   <reboot@gmx.ch>
+
+   Copyright © 2003-2004 Christoph Hohmann
+     __________________________________________________________
+
+   Table of Contents
+   1. What's the Maildir++ Plugin?
+   2. Requirements
+   3. Install
+   4. Usage
+   5. ToDo
+
+1. What's the Maildir++ Plugin?
+
+   The Maildir++ plugin for Claws Mail provides direct access to
+   Maildir++ Mailboxes used by IMAP-Servers like Courier-IMAP,
+   BincIMAP or Dovecot without having all the IMAP overhead of a
+   connection to 'localhost'.
+     __________________________________________________________
+
+2. Requirements
+
+     * Claws Mail 0.9.10claws48
+     * Berkeley DB 4.1
+
+   Newer versions can work too. If you use a precompiled package,
+   you might have to install an additional development-package.
+     __________________________________________________________
+
+3. Install
+
+   Run the configure script. You need the Claws Mail includes and
+   pkg-config files that are usually installed, when you install
+   Claws Mail.
+
+   After the configure script you can build the plugin with make
+   and install it with make install. It should install plugins in
+   the location where the other plugins are usually
+   $PREFIX/lib/claws-mail. But you can load the plugin from any
+   directory, also from the src/.libs directory in the source
+   directory, if you don't want to install the plugin.
+     __________________________________________________________
+
+4. Usage
+
+   The Maildir++ plugin consists of 2 parts. A common plugin
+   maildir.so and a Gtk+ plugin maildir_gtk.so. You probably want
+   to load both plugins also the common plugin alone is enough to
+   use a Maildir++ folder that is already added in Sylpheed. But
+   without the Gtk+ plugin you can not add new Maildir++ folders
+   in Sylpheed and the PopUp-menu of the folder tree will only
+   show you the common operations that all folders support and not
+   the operations that affect the Maildir++ folder. So you
+   probably want to load it too.
+
+   After you loaded the plugins you can add an existing or create
+   a new Maildir++ folder with the 'File/Add mailbox/Maildir++'
+   entry in the main menu. After that the folder should appear in
+   the folder tree and is useable just like any other folder.
+     __________________________________________________________
+
+5. ToDo
+
+   Things that still have to be completed:
+
+     * Automatic updating of folder contents, when changed by
+       other program

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="iso-8859-15"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN">
+<article>
+    <articleinfo>
+	<title>Maildir++ Plugin for Claws Mail</title>
+	<author>
+	    <firstname>Christoph</firstname>
+	    <surname>Hohmann</surname>
+	    <honorific>B.Sc</honorific>
+	    <affiliation>
+		<address><email>reboot@gmx.ch</email></address>
+    	    </affiliation>
+	</author>
+	<copyright>
+    	    <year>2003-2004</year>
+    	    <holder>Christoph Hohmann</holder>
+	</copyright>
+    </articleinfo>
+    <sect1>
+    	<title>What's the Maildir++ Plugin?</title>
+	<para>
+	    The Maildir++ plugin for Claws Mail provides direct
+	    access to Maildir++ Mailboxes used by IMAP-Servers
+	    like <application>Courier-IMAP</application>,
+	    <application>BincIMAP</application> or
+	    <application>Dovecot</application> without having all the
+	    IMAP overhead of a connection to 'localhost'.
+	</para>
+    </sect1>
+
+    <sect1>
+	<title>Requirements</title>
+	<para>
+	    <itemizedlist mark='opencircle'>
+		<listitem>
+		    <para>
+			Claws Mail 0.9.10claws48
+		    </para>
+		</listitem>
+		<listitem>
+		    <para>
+			Berkeley DB 4.1
+		    </para>
+		</listitem>
+	    </itemizedlist>
+
+	    Newer versions can work too. If you use a precompiled package,
+	    you might have to install an additional development-package.
+	</para>
+    </sect1>
+
+    <sect1>
+	<title>Install</title>
+	<para>
+	    Run the <command>configure</command> script. You need the
+	    Claws Mail includes and pkg-config files that are usually
+	    installed, when you install Claws Mail.
+	</para>
+	<para>
+	    After the <command>configure</command> script you can
+	    build the plugin with <command>make</command> and install
+	    it with <command>make install</command>. It should install
+	    plugins in the location where the other plugins are usually
+	    <filename class="directory">$PREFIX/lib/claws-mail</filename>.
+	    But you can load the plugin from any directory, also from the
+	    <filename class="directory">src/.libs</filename> directory in
+	    the source directory, if you don't want to install the plugin.
+	</para>
+    </sect1>
+
+    <sect1>
+	<title>Usage</title>
+	<para>
+	    The Maildir++ plugin consists
+	    of 2 parts. A common plugin <filename
+	    class="libraryfile">maildir.so</filename> and a Gtk+ plugin
+	    <filename class="libraryfile">maildir_gtk.so</filename>. You
+	    probably want to load both plugins also the common plugin
+	    alone is enough to use a Maildir++ folder that is already
+	    added in Sylpheed. But without the Gtk+ plugin you can not
+	    add new Maildir++ folders in Sylpheed and the PopUp-menu
+	    of the folder tree will only show you the common operations
+	    that all folders support and not the operations that affect
+	    the Maildir++ folder. So you probably want to load it too.
+	</para>
+	<para>
+	    After you loaded the plugins you can add an existing or create
+	    a new Maildir++ folder with the 'File/Add mailbox/Maildir++'
+	    entry in the main menu. After that the folder should appear
+	    in the folder tree and is useable just like any other folder.
+	</para>
+    </sect1>
+
+    <sect1>
+	<title>ToDo</title>
+	<para>
+	    Things that still have to be completed:
+	    <itemizedlist mark='opencircle'>
+		<listitem>
+		    <para>
+			Automatic updating of folder contents, when
+			changed by other program
+		    </para>
+		</listitem>
+	    </itemizedlist>
+	</para>
+    </sect1>
+</article>
