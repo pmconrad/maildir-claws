@@ -281,7 +281,7 @@ static void build_tree(GNode *node, glob_t *globbuf)
 		foldername_utf8 = filename_to_utf8(foldername);
 
 		/* don't add items that already exist in the tree */
-		newitem = folder_find_child_item_by_name(parent, dirname_utf8);
+		newitem = folder_find_child_item_by_name(parent, foldername_utf8);
 		if (newitem == NULL) {
 			newitem = folder_item_new(parent->folder, foldername_utf8, dirname_utf8);
 			newitem->folder = folder;
