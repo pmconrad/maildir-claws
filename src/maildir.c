@@ -56,6 +56,7 @@ static gchar *maildir_item_get_path(Folder * folder, FolderItem * item);
 static gint maildir_get_num_list(Folder * folder, FolderItem * item,
 				 MsgNumberList ** list,
 				 gboolean * old_uids_valid);
+static gboolean maildir_scan_required(Folder * folder, FolderItem * item);
 static MsgInfo *maildir_get_msginfo(Folder * folder, FolderItem * item,
 				    gint num);
 static gchar *maildir_fetch_msg(Folder * folder, FolderItem * item,
@@ -120,6 +121,7 @@ FolderClass *maildir_get_class()
 		maildir_class.remove_folder = maildir_remove_folder;
 		maildir_class.rename_folder = maildir_rename_folder;
 		maildir_class.get_num_list = maildir_get_num_list;
+		maildir_class.scan_required = maildir_scan_required;
 
 		/* Message functions */
 		maildir_class.get_msginfo = maildir_get_msginfo;
@@ -651,6 +653,31 @@ static MsgInfo *maildir_parse_msg(const gchar *file, FolderItem *item)
 #endif
 
 	return msginfo;
+}
+
+static gboolean maildir_scan_required(Folder * folder, FolderItem * item) {
+	gchar *path, *database;
+	struct stat my_stat;
+	time_t db_time;
+	gboolean result = FALSE;
+
+	path = maildir_item_get_path(FOLDER_ITEM(item)->folder, FOLDER_ITEM(item));
+	Xstrcat_a(database, path, G_DIR_SEPARATOR_S "sylpheed_uid.db", return -1);
+	if (lstat(database, &my_stat)) { goto OUTTAHERE; }
+	db_time = my_stat.st_mtime;
+
+	Xstrcat_a(database, path, G_DIR_SEPARATOR_S "new", return -1);
+	if (lstat(database, &my_stat)) { goto OUTTAHERE; }
+	result = my_stat.st_mtime > db_time;
+	if (!result) {
+		Xstrcat_a(database, path, G_DIR_SEPARATOR_S "cur", return -1);
+		if (lstat(database, &my_stat)) { goto OUTTAHERE; }
+		result = my_stat.st_mtime > db_time;
+	}
+OUTTAHERE:
+	g_free(path);
+
+	return result;
 }
 
 static MsgInfo *maildir_get_msginfo(Folder * folder,
