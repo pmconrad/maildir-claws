@@ -38,6 +38,7 @@
 #include "maildir.h"
 #include "foldersel.h"
 #include "main.h"
+#include "summaryview.h"
 
 static void add_mailbox(GtkAction *action, gpointer callback_data);
 static void new_folder_cb(GtkAction *action, gpointer data);
