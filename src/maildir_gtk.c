@@ -358,7 +358,7 @@ static void move_folder_cb(GtkAction *action, gpointer data)
 	if (!from_folder || from_folder->folder->klass != maildir_get_class())
 		return;
 
-	to_folder = foldersel_folder_sel(from_folder->folder, FOLDER_SEL_MOVE, NULL, FALSE);
+	to_folder = foldersel_folder_sel(from_folder->folder, FOLDER_SEL_MOVE, NULL, FALSE, _("Select folder to move folder to"));
 	if (!to_folder)
 		return;
 
@@ -374,7 +374,7 @@ static void copy_folder_cb(GtkAction *action, gpointer data)
 	if (!from_folder || from_folder->folder->klass != maildir_get_class())
 		return;
 
-	to_folder = foldersel_folder_sel(from_folder->folder, FOLDER_SEL_MOVE, NULL, FALSE);
+	to_folder = foldersel_folder_sel(from_folder->folder, FOLDER_SEL_MOVE, NULL, FALSE, _("Select folder to copy folder to"));
 	if (!to_folder)
 		return;
 
