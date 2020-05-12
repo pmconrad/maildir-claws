@@ -41,6 +41,7 @@
 #include "mainwindow.h"
 #include "summaryview.h"
 #include "messageview.h"
+#include "file-utils.h"
 
 #define MAILDIR_FOLDERITEM(item) ((MaildirFolderItem *) item)
 
