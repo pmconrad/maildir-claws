@@ -30,6 +30,7 @@
 
 #include "utils.h"
 #include "folder.h"
+#include "folder_item_prefs.h"
 #include "folderview.h"
 #include "menu.h"
 #include "account.h"
@@ -164,7 +165,7 @@ static void update_tree_cb(GtkAction *action, gpointer data)
 	item = folderview_get_selected_item(folderview);
 	g_return_if_fail(item != NULL);
 
-	summary_show(folderview->summaryview, NULL);
+	summary_show(folderview->summaryview, NULL, 1);
 
 	g_return_if_fail(item->folder != NULL);
 
@@ -284,8 +285,8 @@ static void remove_mailbox_cb(GtkAction *action, gpointer data)
 		(_("Really remove the mailbox `%s' ?\n"
 		   "(The messages are NOT deleted from the disk)"), name);
 	avalue = alertpanel_full(_("Remove mailbox"), message,
-				 GTK_STOCK_CANCEL, _("_Remove"), NULL, FALSE,
-				 NULL, ALERT_WARNING, G_ALERTDEFAULT);
+				 GTK_STOCK_CANCEL, _("_Remove"), NULL, ALERTFOCUS_FIRST,
+				 FALSE, NULL, ALERT_WARNING);
 	g_free(message);
 	g_free(name);
 	if (avalue != G_ALERTALTERNATE) return;
@@ -317,8 +318,8 @@ static void delete_folder_cb(GtkAction *action, gpointer data)
 		(_("All folder(s) and message(s) under `%s' will be deleted.\n"
 		   "Do you really want to delete?"), name);
 	avalue= alertpanel_full(_("Delete folder"), message,
-				 GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL, FALSE,
-				 NULL, ALERT_NOTICE, G_ALERTDEFAULT);
+				 GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL, ALERTFOCUS_FIRST,
+				 FALSE, NULL, ALERT_NOTICE);
 	g_free(message);
 	if (avalue != G_ALERTALTERNATE) return;
 
@@ -337,7 +338,7 @@ static void delete_folder_cb(GtkAction *action, gpointer data)
 		alertpanel_error(_("Can't remove the folder `%s'."), name);
 		if (folderview->opened == folderview->selected)
 			summary_show(folderview->summaryview,
-				     folderview->summaryview->folder_item);
+				     folderview->summaryview->folder_item, 0);
 		g_free(old_id);
 		return;
 	}
